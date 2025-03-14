@@ -15,7 +15,7 @@ RUN pnpm install --frozen-lockfile
 # Fetch apps and build them
 FROM deps AS build
 COPY . .
-RUN pnpm get-app braccoli-site-2.0 && pnpm get-app braccoli-bites && pnpm build
+RUN pnpm get-app braccoli-site-2.0 && pnpm build
 
 # Create the final runtime image
 FROM base AS runner
@@ -28,7 +28,7 @@ ENV NODE_ENV=production
 COPY --from=build /app .
 
 # Expose necessary ports (if required)
-EXPOSE 3000 3001
+EXPOSE 3000
 
 # Start the production server
 CMD ["pnpm", "start"]
